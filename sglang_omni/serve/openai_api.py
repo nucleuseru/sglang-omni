@@ -373,6 +373,21 @@ def _register_health(app: FastAPI) -> None:
             status_code=status_code,
         )
 
+    @app.get("/ping")
+    async def health() -> JSONResponse:
+        """Health check endpoint (includes filesystem browse info)."""
+        client: Client = app.state.client
+        info = client.health()
+        is_running = info.get("running", False)
+        status_code = 200 if is_running else 503
+        return JSONResponse(
+            content={
+                "status": "healthy" if is_running else "unhealthy",
+                **info,
+            },
+            status_code=status_code,
+        )
+
 
 def _register_models(app: FastAPI) -> None:
     @app.get("/v1/models")
