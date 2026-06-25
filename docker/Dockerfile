@@ -39,4 +39,4 @@ RUN uv pip install --no-cache-dir .
 
 EXPOSE ${PORT}
 
-CMD ["sgl-omni", "serve", "--model-path", "fishaudio/s2-pro", "--config", "examples/configs/s2pro_tts.yaml", "--port", "${PORT}"]
+CMD ["sgl-omni", "serve", "--model-path", "fishaudio/s2-pro", "--config", "examples/configs/s2pro_tts.yaml", "--port", "$PORT"]
